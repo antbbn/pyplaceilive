@@ -87,16 +87,24 @@ class PlaceILiveRequest:
 
 
 if __name__ == "__main__":
-  pil = PlaceILiveRequest("Pankow")
+  query = "Pankow"
+  pil = PlaceILiveRequest(query)
 
   # An example
-  print(pil.get_lqi())
-  print(pil.get_category_lqi("Transportation"))
+  print(query,": ",pil.get_lqi())
+  print(query,", Transportation: ", pil.get_category_lqi("Transportation"))
 
+  query = "Nonexistant"
   try:
-    pil = PlaceILiveRequest("Nonexistant")
-    print(pil.get_lqi())
+    pil = PlaceILiveRequest(query)
+    print(query,": ", pil.get_lqi())
   except AddressNotFoundError as e:
     print("Address Not Found: ", e)
 
+  query = "Dircksenstr. 47 10178 Berlin"
+  try:
+    pil = PlaceILiveRequest(query)
+    print(query,": ",pil.get_lqi())
+  except AddressNotFoundError as e:
+    print("Address Not Found: ", e)
 
