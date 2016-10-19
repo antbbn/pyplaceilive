@@ -29,19 +29,32 @@ def get_lqi(address):
   for entry in result:
     try:
       lqi.append(int(entry["lqi"]["value"]))
-    except ValueError:
+    except (ValueError, KeyError):
       lqi.append(-1)
 
   return lqi
 
-#def get_category_lqi(address, category):
-#  result = _request_placeilive(address)
-#  lqi = []
-#  for entry in result:
-#    for cat in entry["lqi"]["lqi_category"]:
-#      if cat["type"] == category:
+def get_category_lqi(address, category):
+  result = _request_placeilive(address)
+  lqi = []
+  for entry in result:
+    #try:
+      for cat in entry["lqi_category"]:
+        if cat["type"] == category:
+          try:
+            lqi.append(int(cat["value"]))
+          except (ValueError, KeyError):
+            lqi.append(-1)
+    #except KeyError:
+    #   pass
+
+  return lqi
+
 
 
 print(get_lqi("Pankow"))
 print(get_lqi("Kreuzberg"))
+print(get_category_lqi("Pankow","Transportation"))
+print(get_category_lqi("Pankow","Safety"))
+
 
