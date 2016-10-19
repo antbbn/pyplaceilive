@@ -33,7 +33,10 @@ class PlaceILiveRequest:
         raise PlaceILiveError("Error code {}".format(res.status_code))
   
     # A good request will return a JSON array of dictionaries.
-    self.result = res.json()
+    try:
+      self.result = res.json()
+    except ValueError:
+      raise PlaceILiveError("Invalid response content")
 
   def get_lqi(self):
     """ 
