@@ -1,0 +1,6 @@
+Python module to query placeilive.com API.
+
+Requires python3 and a recent version of OpenSSL (>= 1.0.1) or
+the requests will fail.
+
+
